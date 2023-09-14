@@ -1,10 +1,10 @@
-class ImageInfo {
+export default class ImageInfo {
   $imageInfo = null;
   data = null;
 
   constructor({ $target, data }) {
-    const $imageInfo = document.createElement("div");
-    $imageInfo.className = "ImageInfo";
+    const $imageInfo = document.createElement('div');
+    $imageInfo.className = 'ImageInfo';
     this.$imageInfo = $imageInfo;
     $target.appendChild($imageInfo);
 
@@ -28,15 +28,15 @@ class ImageInfo {
             <span>${name}</span>
             <div class="close">x</div>
           </div>
-          <img src="${url}" alt="${name}"/>        
+          <img src="${url}" alt="${name}"/>
           <div class="description">
             <div>성격: ${temperament}</div>
             <div>태생: ${origin}</div>
           </div>
         </div>`;
-      this.$imageInfo.style.display = "block";
+      this.$imageInfo.style.display = 'block';
     } else {
-      this.$imageInfo.style.display = "none";
+      this.$imageInfo.style.display = 'none';
     }
   }
 }

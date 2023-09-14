@@ -5,8 +5,22 @@
   font-style: normal;
 }
 
+:root[color-theme="dark"] {
+  --background: #000;
+  --textColor: #fff;
+}
+:root[color-theme="light"] {
+  --background: #fff;
+  --textColor: #000;
+}
+
 html {
   box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--textColor)
 }
 
 body * {
@@ -30,6 +44,7 @@ body * {
   display: grid;
   grid-template-columns: repeat(4, minmax(250px, 1fr));
   grid-gap: 10px;
+  padding: 0;
 }
 
 .SearchResult img {
@@ -39,7 +54,7 @@ body * {
 }
 
 .SearchResult .item {
-  background-color: #eee;
+  background-color: var(--background);
   display: inline-block;
   margin: 0 0 1em;
   width: 100%;
@@ -75,13 +90,36 @@ body * {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
+  background-color: var(--background);
   border: 1px solid #eee;
   border-radius: 5px;
 }
 
 .ImageInfo .content-wrapper img {
   width: 100%;
+}
+
+.DarkModeToggle:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width:992px) {
+  .SearchResult {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+  }
+}
+@media screen and (max-width:768px) {
+  .SearchResult {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+  .ImageInfo .content-wrapper {
+    width: 100%;
+  }
+}
+@media screen and (max-width:576px) {
+  .SearchResult {
+    grid-template-columns: repeat(1, minmax(250px, 1fr));
+  }
 }
 
 /* dark mode 처리
@@ -91,4 +129,4 @@ body * {
     color: white;
   }
 }
-*?
+*/

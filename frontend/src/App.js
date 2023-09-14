@@ -1,4 +1,10 @@
-console.log("app is running!");
+import DarkModeToggle from './DarkModeToggle.js';
+import ImageInfo from './ImageInfo.js';
+import SearchInput from './SearchInput.js';
+import SearchResult from './SearchResult.js';
+import api from './api.js';
+
+console.log('app is running!');
 
 class App {
   $target = null;
@@ -7,11 +13,18 @@ class App {
   constructor($target) {
     this.$target = $target;
 
+    this.darkModeToggle = new DarkModeToggle({
+      $target,
+      // onSearch: keyword => {
+      //   api.fetchCats(keyword).then(({ data }) => this.setState(data));
+      // },
+    });
+
     this.searchInput = new SearchInput({
       $target,
       onSearch: keyword => {
         api.fetchCats(keyword).then(({ data }) => this.setState(data));
-      }
+      },
     });
 
     this.searchResult = new SearchResult({
@@ -20,17 +33,17 @@ class App {
       onClick: image => {
         this.imageInfo.setState({
           visible: true,
-          image
+          image,
         });
-      }
+      },
     });
 
     this.imageInfo = new ImageInfo({
       $target,
       data: {
         visible: false,
-        image: null
-      }
+        image: null,
+      },
     });
   }
 
@@ -40,3 +53,5 @@ class App {
     this.searchResult.setState(nextData);
   }
 }
+
+export default App;
