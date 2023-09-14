@@ -1,5 +1,6 @@
 import DarkModeToggle from './DarkModeToggle.js';
 import ImageInfo from './ImageInfo.js';
+import Loading from './Loading.js';
 import SearchInput from './SearchInput.js';
 import SearchResult from './SearchResult.js';
 import api from './api.js';
@@ -13,17 +14,22 @@ class App {
   constructor($target) {
     this.$target = $target;
 
+    this.loading = new Loading({
+      $target,
+    });
+
     this.darkModeToggle = new DarkModeToggle({
       $target,
-      // onSearch: keyword => {
-      //   api.fetchCats(keyword).then(({ data }) => this.setState(data));
-      // },
     });
 
     this.searchInput = new SearchInput({
       $target,
       onSearch: keyword => {
-        api.fetchCats(keyword).then(({ data }) => this.setState(data));
+        this.loading.show();
+        api.fetchCats(keyword).then(({ data }) => {
+          this.setState(data);
+          this.loading.hide();
+        });
       },
     });
 
