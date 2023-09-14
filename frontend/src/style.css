@@ -101,6 +101,10 @@ body * {
   border-radius: 5px;
 }
 
+.close {
+  cursor: pointer;
+}
+
 .ImageInfo .content-wrapper img {
   width: 100%;
 }
