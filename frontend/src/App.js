@@ -10,7 +10,7 @@ console.log('app is running!');
 class App {
   $target = null;
   data = [];
-
+  page = 1;
   constructor($target) {
     this.$target = $target;
 
@@ -48,6 +48,18 @@ class App {
         this.imageInfo.showDetail({
           visible: true,
           cat,
+        });
+      },
+      onNextPage: () => {
+        this.loading.show();
+        const keywords = localStorage.getItem('keywords');
+        const lastKeyword = JSON.parse(keywords) ?? [];
+        const page = this.page + 1;
+        api.fetchCatsPage(lastKeyword[0], page).then(({ data }) => {
+          this.setState([...this.data, ...data]);
+          this.page = page;
+          this.loading.hide();
+          this.saveResult(data);
         });
       },
     });
