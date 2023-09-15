@@ -1,3 +1,5 @@
+import KeywordHistory from './KeywordHistory.js';
+
 const TEMPLATE = '<input type="text">';
 
 export default class SearchInput {
@@ -12,9 +14,10 @@ export default class SearchInput {
     $searchInput.className = 'SearchInput';
     $wrapper.appendChild($searchInput);
 
-    $searchInput.addEventListener('keyup', e => {
-      if (e.keyCode === 13) {
+    $searchInput.addEventListener('keypress', e => {
+      if (e.key === 'Enter') {
         onSearch(e.target.value);
+        this.keywordHistory.addKeyword(e.target.value);
       }
     });
 
@@ -25,8 +28,12 @@ export default class SearchInput {
     $wrapper.appendChild($randomButton);
 
     $randomButton.addEventListener('click', e => {
-      console.log(e);
       onRandomSearch();
+    });
+
+    this.keywordHistory = new KeywordHistory({
+      $target: $wrapper,
+      onSearch,
     });
   }
   render() {}
